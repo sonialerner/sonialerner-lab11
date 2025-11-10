@@ -15,9 +15,21 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A1", 100);
         Lab11_Thread threadB = new Lab11_Thread("B1", 100);
 
+        threadA.setData( threadA.getData() ) ;
+        threadB.setData( threadB.getData() ) ;
+
         threadA.start();
         threadB.start();
 
+        try {
+            threadA.join() ;
+            threadB.join() ;
+        } catch (Throwable e) {
+            continue ;
+        }
+
+        assertEquals(threadA.getData().size(), 200) ;
+        assertEquals(threadB.getData().size(), 200) ;
     }
 
     /*
