@@ -15,8 +15,8 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A1", 100);
         Lab11_Thread threadB = new Lab11_Thread("B1", 100);
 
-        threadA.setData( threadA.getData() ) ;
-        threadB.setData( threadB.getData() ) ;
+        threadA.setData( new ArrayList<>() ) ;
+        threadB.setData( threadA.getData() ) ;
 
         threadA.start();
         threadB.start();
@@ -25,7 +25,7 @@ public class Lab11_Tests {
             threadA.join() ;
             threadB.join() ;
         } catch (Throwable e) {
-            continue ;
+            e.printStackTrace() ;
         }
 
         assertEquals(threadA.getData().size(), 200) ;
@@ -41,14 +41,27 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A2", 500);
         Lab11_Thread threadB = new Lab11_Thread("B2", 500);
 
+        threadA.setData( new ArrayList<>() ) ;
+        threadB.setData( threadA.getData() ) ;
+
         threadA.start();
         threadB.start();
+
         try {
             Thread.sleep(500); 
         } catch (Exception e){
             e.printStackTrace();
         }
 
+        boolean status = threadA.getData().size() >= 10 ;
+        assertEquals(status, true) ;
+
+        try {
+            threadA.join() ;
+            threadB.join() ;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -60,6 +73,9 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A3", 10);
         Lab11_Thread threadB = new Lab11_Thread("B3", 10);
 
+        threadA.setData( new ArrayList<>() ) ;
+        threadB.setData( threadA.getData() ) ;
+
         threadA.start();
         
         try {
@@ -67,7 +83,9 @@ public class Lab11_Tests {
         } catch (Exception e){
             e.printStackTrace();
         }
-        
+
+        assertEquals(threadA.getData().size(), 10) ;
+
         threadB.start();
     }
 }
